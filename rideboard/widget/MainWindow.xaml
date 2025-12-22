@@ -223,15 +223,17 @@
                          <TextBlock Text="{Binding FooterText}" Foreground="{StaticResource LabelGrey}" FontSize="10" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
-            </Grid>
-        </Border>
 
-        <Border Background="#CC000000" Visibility="{Binding OfflineVisibility}">
-            <TextBlock Text="OFFLINE" Foreground="{StaticResource DigitalAmber}" FontFamily="{StaticResource DigitalFont}" FontWeight="Bold" FontSize="24">
-                <TextBlock.Effect>
-                    <StaticResource ResourceKey="DigitalGlow"/>
-                </TextBlock.Effect>
-            </TextBlock>
+                <!-- Offline Overlay (Covering only data area, keeping Header/Footer accessible) -->
+                <Border Grid.Row="2" Background="#CC000000" Visibility="{Binding OfflineVisibility}" CornerRadius="4">
+                    <TextBlock Text="OFFLINE" Foreground="{StaticResource DigitalAmber}" FontFamily="{StaticResource DigitalFont}" FontWeight="Bold" FontSize="24"
+                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Effect>
+                            <StaticResource ResourceKey="DigitalGlow"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                </Border>
+            </Grid>
         </Border>
     </Grid>
 </Window>
