@@ -1,5 +1,6 @@
 @echo off
 setlocal
+chcp 65001 >nul
 
 echo ========================================================
 echo  RideBoard Release Packager
@@ -25,26 +26,12 @@ mkdir "dist\server"
 xcopy "rideboard\server" "dist\server" /E /I /Y
 
 echo.
-echo Cleaning up sensitive/unnecessary files...
+echo Copying Documentation...
+copy "使用说明_README.txt" "dist\"
+
+echo.
+echo Cleaning up unnecessary files...
 del "dist\*.pdb" 2>nul
-REM Remove local config with real keys
-if exist "dist\server\config.json" del "dist\server\config.json"
-REM Remove local cache/tokens
-if exist "dist\server\data\*.json" del "dist\server\data\*.json"
-
-echo.
-echo Creating default config.json...
-(
-echo {
-echo     "client_id": "YOUR_CLIENT_ID_HERE",
-echo     "client_secret": "YOUR_CLIENT_SECRET_HERE",
-echo     "redirect_uri": "http://localhost:8787/callback"
-echo }
-) > "dist\server\config.json"
-
-echo.
-echo Copying README...
-copy "使用说明_README.txt" "dist\使用说明_README.txt"
 
 echo.
 echo ========================================================
