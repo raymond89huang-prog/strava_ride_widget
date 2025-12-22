@@ -12,3 +12,4 @@ __pycache__/
 /rideboard/server/config.json
 .DS_Store
 Thumbs.db
+dist/

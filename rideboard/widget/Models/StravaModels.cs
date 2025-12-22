@@ -20,6 +20,10 @@ namespace RideBoard.Widget.Models
         public int? AvgPower { get; set; }
         [JsonPropertyName("avg_hr")]
         public int? AvgHr { get; set; }
+        [JsonPropertyName("elev_m")]
+        public int? ElevM { get; set; }
+        [JsonPropertyName("time")]
+        public string? Time { get; set; }
     }
 
     public class WeekModel
@@ -28,6 +32,8 @@ namespace RideBoard.Widget.Models
         public double? DistanceKm { get; set; }
         [JsonPropertyName("time")]
         public string? Time { get; set; }
+        [JsonPropertyName("elev_m")]
+        public int? ElevM { get; set; }
     }
 
     public class YearModel

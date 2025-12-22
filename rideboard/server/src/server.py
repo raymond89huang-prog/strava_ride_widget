@@ -21,6 +21,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         
         # 1. Main Data Endpoint
         if parsed_url.path == '/strava':
+            # Check for refresh parameter
+            query = parse_qs(parsed_url.query)
+            if 'refresh' in query and query['refresh'][0] == 'true':
+                print("Force refresh requested.")
+                update_data()
+
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()

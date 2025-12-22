@@ -35,9 +35,7 @@ namespace RideBoard.Widget
             _notifyIcon = new System.Windows.Forms.NotifyIcon();
             try
             {
-                // Try to use app icon, fallback to system error icon if fails (dev env)
-                var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                _notifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(exePath);
+                _notifyIcon.Icon = CreateAppIcon();
             }
             catch 
             {
@@ -78,6 +76,12 @@ namespace RideBoard.Widget
                 {
                     // Fallback: maybe running from project root during dev?
                     serverPath = Path.GetFullPath(Path.Combine(baseDir, @"..\..\server\src\server.py"));
+                }
+                
+                // Fallback 2: Distribution/Publish mode (server folder is copied to output root)
+                if (!File.Exists(serverPath))
+                {
+                     serverPath = Path.GetFullPath(Path.Combine(baseDir, @"server\src\server.py"));
                 }
 
                 if (File.Exists(serverPath))
@@ -129,6 +133,43 @@ namespace RideBoard.Widget
             if (e.ExceptionObject is Exception ex)
             {
                 // System.Windows.MessageBox.Show("Critical Error: " + ex.Message, "RideBoard Fatal");
+            }
+        }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        private static extern bool DestroyIcon(IntPtr handle);
+
+        private System.Drawing.Icon CreateAppIcon()
+        {
+            using (var bitmap = new System.Drawing.Bitmap(64, 64))
+            {
+                using (var g = System.Drawing.Graphics.FromImage(bitmap))
+                {
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+
+                    // Draw background circle (Strava Orange)
+                    using (var brush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(252, 76, 2)))
+                    {
+                        g.FillEllipse(brush, 0, 0, 64, 64);
+                    }
+
+                    // Draw "R" in White
+                    using (var font = new System.Drawing.Font("Segoe UI", 40, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel))
+                    {
+                        var text = "R";
+                        var size = g.MeasureString(text, font);
+                        float x = (64 - size.Width) / 2;
+                        float y = (64 - size.Height) / 2;
+                        g.DrawString(text, font, System.Drawing.Brushes.White, x, y);
+                    }
+                }
+
+                var hIcon = bitmap.GetHicon();
+                var icon = System.Drawing.Icon.FromHandle(hIcon);
+                var clonedIcon = (System.Drawing.Icon)icon.Clone();
+                DestroyIcon(hIcon);
+                return clonedIcon;
             }
         }
     }

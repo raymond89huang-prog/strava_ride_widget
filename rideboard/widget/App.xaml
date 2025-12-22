@@ -3,6 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Color x:Key="AmberColor">#FFB000</Color>
+        <SolidColorBrush x:Key="DigitalAmber" Color="{StaticResource AmberColor}"/>
+        <SolidColorBrush x:Key="DigitalDim" Color="#30FFB000"/>
+        <SolidColorBrush x:Key="LabelGrey" Color="#909090"/>
+        <FontFamily x:Key="DigitalFont">./Assets/Fonts/#Digital-7 Mono, Consolas, Courier New</FontFamily>
+        <FontFamily x:Key="LabelFont">Segoe UI, Arial</FontFamily>
+        <DropShadowEffect x:Key="DigitalGlow" Color="{StaticResource AmberColor}" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
     </Application.Resources>
 </Application>
 

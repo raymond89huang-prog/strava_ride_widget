@@ -46,11 +46,17 @@ namespace RideBoard.Widget.ViewModels
         public string LastPower { get => _lastPower; set { _lastPower = value; OnPropertyChanged(); } }
         private string _lastHr = "";
         public string LastHr { get => _lastHr; set { _lastHr = value; OnPropertyChanged(); } }
+        private string _lastElev = "";
+        public string LastElev { get => _lastElev; set { _lastElev = value; OnPropertyChanged(); } }
+        private string _lastTime = "";
+        public string LastTime { get => _lastTime; set { _lastTime = value; OnPropertyChanged(); } }
 
         private string _weekDistance = "- km";
         public string WeekDistance { get => _weekDistance; set { _weekDistance = value; OnPropertyChanged(); } }
         private string _weekTime = "-:--";
         public string WeekTime { get => _weekTime; set { _weekTime = value; OnPropertyChanged(); } }
+        private string _weekElev = "";
+        public string WeekElev { get => _weekElev; set { _weekElev = value; OnPropertyChanged(); } }
 
         // --- Page 2: Yearly ---
         private Visibility _pageYearlyVisibility = Visibility.Collapsed;
@@ -144,37 +150,81 @@ namespace RideBoard.Widget.ViewModels
             }
             
             string timeStr = payload?.UpdatedAt ?? DateTime.Now.ToString("HH:mm");
-            FooterText = online ? $"更新时间：{timeStr}" : $"离线 ({timeStr})";
+            string status = payload?.Status ?? "";
+            
+            if (!online)
+            {
+                FooterText = $"离线 ({timeStr})";
+            }
+            else if (status.Contains("offline") || status.Contains("cached"))
+            {
+                 // Server is running but maybe token expired or not logged in
+                 FooterText = $"Cached ({timeStr})";
+            }
+            else
+            {
+                FooterText = $"更新时间：{timeStr}";
+            }
+        }
+
+        private static string FormatHms(string? src)
+        {
+            if (string.IsNullOrWhiteSpace(src)) return "000:00:00";
+            var s = src.Trim().ToLowerInvariant();
+            // Already contains ':' → normalize to HH:MM:SS
+            if (s.Contains(":"))
+            {
+                var parts = s.Split(':');
+                int h = 0, m = 0, sec = 0;
+                _ = int.TryParse(parts.Length > 0 ? parts[0] : "0", out h);
+                _ = int.TryParse(parts.Length > 1 ? parts[1] : "0", out m);
+                _ = int.TryParse(parts.Length > 2 ? parts[2] : "0", out sec);
+                return $"{h:000}:{m:00}:{sec:00}";
+            }
+            // Parse patterns like "173h 6m" or "12h" "45m" "30s"
+            int hh = 0, mm = 0, ss = 0;
+            try
+            {
+                var hMatch = System.Text.RegularExpressions.Regex.Match(s, "(\\d+)\\s*h");
+                var mMatch = System.Text.RegularExpressions.Regex.Match(s, "(\\d+)\\s*m");
+                var sMatch = System.Text.RegularExpressions.Regex.Match(s, "(\\d+)\\s*s");
+                if (hMatch.Success) hh = int.Parse(hMatch.Groups[1].Value);
+                if (mMatch.Success) mm = int.Parse(mMatch.Groups[1].Value);
+                if (sMatch.Success) ss = int.Parse(sMatch.Groups[1].Value);
+            }
+            catch { }
+            return $"{hh:000}:{mm:00}:{ss:00}";
         }
 
         private void Apply(StravaPayload p)
         {
-            // Page 1
             if (p.Today != null)
             {
-                TodayDistance = p.Today.DistanceKm.HasValue ? $"{p.Today.DistanceKm:0.#} km" : "- km";
-                TodayTime = string.IsNullOrWhiteSpace(p.Today.Time) ? "-:--:--" : p.Today.Time!;
-                TodayElev = p.Today.ElevationM.HasValue ? $"{p.Today.ElevationM} m" : "";
+                TodayDistance = p.Today.DistanceKm.HasValue ? $"{p.Today.DistanceKm:000.0}" : "000.0";
+                TodayTime = FormatHms(p.Today.Time);
+                TodayElev = p.Today.ElevationM.HasValue ? $"{p.Today.ElevationM}" : "0";
             }
             if (p.Last != null)
             {
-                LastDistance = p.Last.DistanceKm.HasValue ? $"{p.Last.DistanceKm:0.#} km" : "- km";
-                LastPower = p.Last.AvgPower.HasValue ? $"{p.Last.AvgPower} W" : "";
-                LastHr = p.Last.AvgHr.HasValue ? $"{p.Last.AvgHr} bpm" : "";
+                LastDistance = p.Last.DistanceKm.HasValue ? $"{p.Last.DistanceKm:000.0}" : "000.0";
+                LastPower = p.Last.AvgPower.HasValue ? $"{p.Last.AvgPower}" : "-";
+                LastHr = p.Last.AvgHr.HasValue ? $"{p.Last.AvgHr}" : "-";
+                LastElev = p.Last.ElevM.HasValue ? $"{p.Last.ElevM}" : "0";
+                LastTime = FormatHms(p.Last.Time);
             }
             if (p.Week != null)
             {
-                WeekDistance = p.Week.DistanceKm.HasValue ? $"{p.Week.DistanceKm:0.#} km" : "- km";
-                WeekTime = string.IsNullOrWhiteSpace(p.Week.Time) ? "-:--" : p.Week.Time!;
+                WeekDistance = p.Week.DistanceKm.HasValue ? $"{p.Week.DistanceKm:000.0}" : "000.0";
+                WeekTime = FormatHms(p.Week.Time);
+                WeekElev = p.Week.ElevM.HasValue ? $"{p.Week.ElevM}" : "0";
             }
 
-            // Page 2
             if (p.Year != null)
             {
                 YearRange = p.Year.Range ?? "";
-                YearTotalDistance = p.Year.DistanceKm.HasValue ? $"{p.Year.DistanceKm:N0} km" : "- km";
-                YearTotalElev = p.Year.ElevM.HasValue ? $"{p.Year.ElevM:N0} m" : "- m";
-                YearTotalTime = p.Year.Time ?? "-h -m";
+                YearTotalDistance = p.Year.DistanceKm.HasValue ? $"{p.Year.DistanceKm:N0}" : "0";
+                YearTotalElev = p.Year.ElevM.HasValue ? $"{p.Year.ElevM:N0}" : "0";
+                YearTotalTime = FormatHms(p.Year.Time);
             }
         }
 

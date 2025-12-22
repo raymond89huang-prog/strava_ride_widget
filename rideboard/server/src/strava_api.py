@@ -91,11 +91,11 @@ class StravaAPI:
         # Default Structure
         result = {
             "today": {"distance_km": 0, "time": "0:00:00", "elev_m": 0},
-            "last": {"distance_km": 0, "avg_power": 0, "avg_hr": 0},
-            "week": {"distance_km": 0, "time": "0:00"},
+            "last": {"distance_km": 0, "avg_power": 0, "avg_hr": 0, "elev_m": 0, "time": "0:00:00"},
+            "week": {"distance_km": 0, "time": "0:00:00", "elev_m": 0},
             "year": {
                 "year_val": now.year,
-                "range": f"{now.year}年1月1日 - {now.year}12月31日",
+                "range": f"{now.year}年1月1日 - {now.year}年12月31日",
                 "distance_km": 0,
                 "elev_m": 0,
                 "time": "0h 0m"
@@ -106,7 +106,7 @@ class StravaAPI:
 
         # --- Process Recent Activities (Today / Last / Week) ---
         today_stats = {'distance': 0, 'moving_time': 0, 'elevation': 0}
-        week_stats = {'distance': 0, 'moving_time': 0}
+        week_stats = {'distance': 0, 'moving_time': 0, 'elevation': 0}
         last_ride = {}
 
         if activities:
@@ -121,7 +121,9 @@ class StravaAPI:
                 last_ride = {
                     'distance_km': round(last.get('distance', 0) / 1000, 1),
                     'avg_power': int(last.get('average_watts', 0)),
-                    'avg_hr': int(last.get('average_heartrate', 0)) if 'average_heartrate' in last else 0
+                    'avg_hr': int(last.get('average_heartrate', 0)) if 'average_heartrate' in last else 0,
+                    'elev_m': int(last.get('total_elevation_gain', 0)),
+                    'time': format_time_long(last.get('moving_time', 0))
                 }
                 result['status'] = "ok"
 
@@ -138,6 +140,7 @@ class StravaAPI:
                 if act_date >= start_of_week:
                     week_stats['distance'] += act.get('distance', 0)
                     week_stats['moving_time'] += act.get('moving_time', 0)
+                    week_stats['elevation'] += act.get('total_elevation_gain', 0)
 
             # Update Result for Recent
             result['today'] = {
@@ -147,8 +150,9 @@ class StravaAPI:
             }
             result['last'] = last_ride
             result['week'] = {
-                "distance_km": round(week_stats['distance'] / 1000, 0),
-                "time": format_time(week_stats['moving_time'])
+                "distance_km": round(week_stats['distance'] / 1000, 1),
+                "time": format_time_long(week_stats['moving_time']),
+                "elev_m": int(week_stats['elevation'])
             }
 
         # --- Process Year Stats ---
@@ -160,15 +164,14 @@ class StravaAPI:
                 y_elev = ytd.get('elevation_gain', 0)
                 y_time = ytd.get('moving_time', 0)
                 
-                # Format Year Time as "123h 45m"
-                y_h, y_m = divmod(y_time // 60, 60)
-                
+                # Format Year Time as "HH:MM:SS" (even if >24h)
+                # y_time is in seconds
                 result['year'] = {
                     "year_val": now.year,
                     "range": f"{now.year}年1月1日 - {now.year}年12月31日",
                     "distance_km": int(y_dist / 1000),
                     "elev_m": int(y_elev),
-                    "time": f"{int(y_h)}h {int(y_m)}m"
+                    "time": format_time_long(y_time)
                 }
 
         return result

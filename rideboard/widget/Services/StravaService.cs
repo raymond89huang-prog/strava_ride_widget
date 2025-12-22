@@ -23,7 +23,17 @@ namespace RideBoard.Widget.Services
             }
             try
             {
-                var resp = await _http.GetAsync("http://127.0.0.1:8787/strava", ct);
+                var url = "http://127.0.0.1:8787/strava";
+                if (forceRefresh) 
+                {
+                    url += "?refresh=true&_t=" + DateTime.UtcNow.Ticks;
+                }
+                else
+                {
+                    url += "?_t=" + DateTime.UtcNow.Ticks;
+                }
+
+                var resp = await _http.GetAsync(url, ct);
                 resp.EnsureSuccessStatusCode();
                 var json = await resp.Content.ReadAsStringAsync(ct);
                 var payload = JsonSerializer.Deserialize<StravaPayload>(json, new JsonSerializerOptions
