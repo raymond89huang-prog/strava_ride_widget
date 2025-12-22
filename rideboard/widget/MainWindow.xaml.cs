@@ -19,7 +19,7 @@ namespace RideBoard.Widget
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Topmost = true;
+            // Topmost = true; // Disabled by user request
             WindowBehavior.ApplyClickThrough(this, false);
             _vm.Start();
         }
