@@ -1,0 +1,14 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.pdb
+*.cache
+__pycache__/
+*.pyc
+/rideboard/server/data/tokens.json
+/rideboard/server/data/cache.json
+/rideboard/server/config.json
+.DS_Store
+Thumbs.db
