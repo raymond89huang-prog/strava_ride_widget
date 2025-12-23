@@ -155,8 +155,14 @@ def background_loop():
             update_data()
         except Exception as e:
             print(f"Update error: {e}")
-        # Update every 15 minutes
-        time.sleep(900)
+        
+        # Default to 15 minutes if not configured
+        interval = 15
+        if auth.config and 'refresh_interval_minutes' in auth.config:
+            interval = int(auth.config['refresh_interval_minutes'])
+            
+        print(f"Next background update in {interval} minutes.")
+        time.sleep(interval * 60)
 
 def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler, port=8787):
     server_address = ('127.0.0.1', port)

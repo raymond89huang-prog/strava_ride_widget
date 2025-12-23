@@ -12,11 +12,15 @@ namespace RideBoard.Widget.Services
         private readonly HttpClient _http = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
         private StravaPayload? _cache;
         private DateTime _lastApiFetch = DateTime.MinValue;
+        // Default 10 minutes, but we can relax this since server handles background updates
+        // However, we still need a reasonable throttle to not spam server with "refresh=true"
+        // Let's match the server config or keep it slightly lower
         private readonly TimeSpan _apiInterval = TimeSpan.FromMinutes(10);
 
         public async Task<(StravaPayload? payload, bool online)> GetDataAsync(CancellationToken ct, bool forceRefresh = false)
         {
-            var shouldCall = forceRefresh || DateTime.UtcNow - _lastApiFetch >= _apiInterval || _cache == null;
+            var isTimeForUpdate = DateTime.UtcNow - _lastApiFetch >= _apiInterval;
+            var shouldCall = forceRefresh || isTimeForUpdate || _cache == null;
             if (!shouldCall)
             {
                 return (_cache, true);
@@ -24,7 +28,8 @@ namespace RideBoard.Widget.Services
             try
             {
                 var url = "http://127.0.0.1:8787/strava";
-                if (forceRefresh) 
+                // If it's a forced refresh OR the interval has passed, ask server to fetch new data from Strava
+                if (forceRefresh || isTimeForUpdate) 
                 {
                     url += "?refresh=true&_t=" + DateTime.UtcNow.Ticks;
                 }
