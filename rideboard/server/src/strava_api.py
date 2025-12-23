@@ -95,7 +95,7 @@ class StravaAPI:
             "week": {"distance_km": 0, "time": "0:00:00", "elev_m": 0},
             "year": {
                 "year_val": now.year,
-                "range": f"{now.year}年1月1日 - {now.year}年12月31日",
+                "range": f"JAN 1, {now.year} - DEC 31, {now.year}",
                 "distance_km": 0,
                 "elev_m": 0,
                 "time": "0h 0m"
@@ -168,7 +168,7 @@ class StravaAPI:
                 # y_time is in seconds
                 result['year'] = {
                     "year_val": now.year,
-                    "range": f"{now.year}年1月1日 - {now.year}年12月31日",
+                    "range": f"JAN 1, {now.year} - DEC 31, {now.year}",
                     "distance_km": int(y_dist / 1000),
                     "elev_m": int(y_elev),
                     "time": format_time_long(y_time)

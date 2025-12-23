@@ -3,13 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Color x:Key="AmberColor">#FFB000</Color>
-        <SolidColorBrush x:Key="DigitalAmber" Color="{StaticResource AmberColor}"/>
-        <SolidColorBrush x:Key="DigitalDim" Color="#30FFB000"/>
-        <SolidColorBrush x:Key="LabelGrey" Color="#909090"/>
-        <FontFamily x:Key="DigitalFont">./Assets/Fonts/#Digital-7 Mono, Consolas, Courier New</FontFamily>
-        <FontFamily x:Key="LabelFont">Segoe UI, Arial</FontFamily>
-        <DropShadowEffect x:Key="DigitalGlow" Color="{StaticResource AmberColor}" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
+        <!-- Colors -->
+        <Color x:Key="LcdMainColor">#D6C56B</Color>
+        <Color x:Key="LcdDarkColor">#6B6430</Color>
+        <Color x:Key="LabelColor">#8FA58F</Color>
+        <Color x:Key="PanelColor">#E6202421</Color>
+        
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="DigitalMainBrush" Color="{StaticResource LcdMainColor}"/>
+        <SolidColorBrush x:Key="DigitalDarkBrush" Color="{StaticResource LcdDarkColor}"/>
+        <SolidColorBrush x:Key="LabelBrush" Color="{StaticResource LabelColor}"/>
+        <SolidColorBrush x:Key="PanelBrush" Color="{StaticResource PanelColor}"/>
+        
+        <!-- Fonts -->
+        <FontFamily x:Key="DigitalFont">./Assets/Fonts/Digital-7/#Digital-7 Mono</FontFamily>
+        <FontFamily x:Key="PixelFont">./Assets/Fonts/VT323/#VT323</FontFamily>
+        <FontFamily x:Key="LabelFont">./Assets/Fonts/VT323/#VT323, Segoe UI, Arial</FontFamily>
+        
+        <!-- Effects -->
+        <DropShadowEffect x:Key="DigitalGlow" Color="{StaticResource LcdMainColor}" BlurRadius="2" ShadowDepth="0" Opacity="0.18"/>
+        
+        <!-- Scanline Brush -->
+        <DrawingBrush x:Key="ScanlineBrush" TileMode="Tile" Viewport="0,0,4,4" ViewportUnits="Absolute">
+            <DrawingBrush.Drawing>
+                <GeometryDrawing>
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="0,0,4,1" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="Black" Opacity="0.1"/>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
     </Application.Resources>
 </Application>
 

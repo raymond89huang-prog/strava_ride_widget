@@ -170,16 +170,16 @@ namespace RideBoard.Widget.ViewModels
             
             if (!online)
             {
-                FooterText = $"离线 ({timeStr})";
+                FooterText = $"OFFLINE {timeStr}";
             }
             else if (status.Contains("offline") || status.Contains("cached"))
             {
                  // Server is running but maybe token expired or not logged in
-                 FooterText = $"Cached ({timeStr})";
+                 FooterText = $"CACHED {timeStr}";
             }
             else
             {
-                FooterText = $"更新时间：{timeStr}";
+                FooterText = $"UPD {timeStr}";
             }
         }
 
