@@ -12,9 +12,7 @@
     <FileVersion>1.2.3.1</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Assets\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Assets\**" />
   </ItemGroup>
 </Project>
 
