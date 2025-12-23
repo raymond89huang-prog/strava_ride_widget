@@ -46,7 +46,7 @@
 
                 <!-- About Info -->
                 <StackPanel Margin="0,25,0,0">
-                    <TextBlock Text="RideBoard v1.2" Foreground="#D0FFFFFF" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="RideBoard v1.2.2" Foreground="#D0FFFFFF" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Center"/>
                     <TextBlock Foreground="#90FFFFFF" FontSize="11" HorizontalAlignment="Center" Margin="0,4,0,0">
                         <Hyperlink NavigateUri="https://github.com/raymond89huang-prog/strava_ride_widget" RequestNavigate="Hyperlink_RequestNavigate"
                                    Foreground="#90FFFFFF" TextDecorations="None">
