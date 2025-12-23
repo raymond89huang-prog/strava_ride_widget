@@ -85,7 +85,15 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="LAST RIDE" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" />
+                            
+                            <Grid Grid.Row="0">
+                                <TextBlock Text="LAST RIDE" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding LastTime}" Foreground="{StaticResource DigitalMainBrush}" FontSize="20" FontFamily="{StaticResource DigitalFont}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                    <TextBlock.Effect>
+                                        <StaticResource ResourceKey="DigitalGlow"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
                             
                             <Grid Grid.Row="1" Margin="0,2,0,0">
                                 <Grid.ColumnDefinitions>
@@ -103,12 +111,6 @@
                                 </StackPanel>
                                 
                                 <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                                    <TextBlock Text="{Binding LastTime}" Foreground="{StaticResource DigitalMainBrush}" FontSize="20" FontFamily="{StaticResource DigitalFont}" HorizontalAlignment="Right">
-                                        <TextBlock.Effect>
-                                            <StaticResource ResourceKey="DigitalGlow"/>
-                                        </TextBlock.Effect>
-                                    </TextBlock>
-                                    
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,2,0,0">
                                         <TextBlock Text="{Binding LastPower}" Foreground="{StaticResource DigitalMainBrush}" FontSize="16" FontFamily="{StaticResource DigitalFont}">
                                             <TextBlock.Effect>
@@ -122,7 +124,7 @@
                                                 <StaticResource ResourceKey="DigitalGlow"/>
                                             </TextBlock.Effect>
                                         </TextBlock>
-                                        <TextBlock Text="m" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Bottom" Margin="2,0,0,3"/>
+                                        <TextBlock Text="m" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Bottom" Margin="2,0,0,2"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
@@ -135,7 +137,20 @@
                         </Grid>
 
                         <Grid>
-                             <TextBlock Text="THIS WEEK" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" />
+                             <Grid.RowDefinitions>
+                                 <RowDefinition Height="Auto"/>
+                                 <RowDefinition Height="Auto"/>
+                             </Grid.RowDefinitions>
+
+                             <Grid Grid.Row="0">
+                                 <TextBlock Text="THIS WEEK" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Top"/>
+                                 <TextBlock Text="{Binding WeekTime}" Foreground="{StaticResource DigitalMainBrush}" FontSize="20" FontFamily="{StaticResource DigitalFont}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                     <TextBlock.Effect>
+                                         <StaticResource ResourceKey="DigitalGlow"/>
+                                     </TextBlock.Effect>
+                                 </TextBlock>
+                             </Grid>
+
                             <Grid Grid.Row="1" Margin="0,2,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -152,19 +167,13 @@
                                 </StackPanel>
                                 
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                                    <TextBlock Text="{Binding WeekTime}" Foreground="{StaticResource DigitalMainBrush}" FontSize="20" FontFamily="{StaticResource DigitalFont}" HorizontalAlignment="Right">
-                                        <TextBlock.Effect>
-                                            <StaticResource ResourceKey="DigitalGlow"/>
-                                        </TextBlock.Effect>
-                                    </TextBlock>
-                                    
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,2,0,0">
                                         <TextBlock Text="{Binding WeekElev}" Foreground="{StaticResource DigitalMainBrush}" FontSize="16" FontFamily="{StaticResource DigitalFont}">
                                             <TextBlock.Effect>
                                                 <StaticResource ResourceKey="DigitalGlow"/>
                                             </TextBlock.Effect>
                                         </TextBlock>
-                                        <TextBlock Text="m" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Bottom" Margin="2,0,0,3"/>
+                                        <TextBlock Text="m" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Bottom" Margin="2,0,0,2"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
@@ -172,18 +181,18 @@
                     </StackPanel>
 
                     <StackPanel Visibility="{Binding PageYearlyVisibility}">
-                        <TextBlock Text="YEARLY SUMMARY" Foreground="{StaticResource LabelBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" FontWeight="Bold" Margin="0,0,0,2"/>
-                        <TextBlock Text="{Binding YearRange}" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" Margin="0,0,0,16"/>
+                        <TextBlock Text="YEARLY SUMMARY" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" Margin="0,0,0,2"/>
+                        <TextBlock Text="{Binding YearRange}" Foreground="{StaticResource DigitalDarkBrush}" FontSize="14" FontFamily="{StaticResource PixelFont}" Margin="0,0,0,16"/>
                         
                         <Grid Margin="0,0,0,12">
-                            <TextBlock Text="TOTAL DISTANCE" Foreground="{StaticResource LabelBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Top"/>
+                            <TextBlock Text="TOTAL DISTANCE" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Top"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <TextBlock Text="{Binding YearTotalDistance}" Foreground="{StaticResource DigitalMainBrush}" FontSize="28" FontFamily="{StaticResource DigitalFont}" FontWeight="Normal">
                                     <TextBlock.Effect>
                                         <StaticResource ResourceKey="DigitalGlow"/>
                                     </TextBlock.Effect>
                                 </TextBlock>
-                                <TextBlock Text="km" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Bottom" Margin="4,0,0,6"/>
+                                <TextBlock Text="km" Foreground="{StaticResource DigitalDarkBrush}" FontSize="14" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Bottom" Margin="4,0,0,6"/>
                             </StackPanel>
                             <!-- Divider (Etched) -->
                             <Grid Height="2" Opacity="0.6" VerticalAlignment="Bottom" Margin="0,32,0,0">
@@ -210,7 +219,7 @@
                         </Grid>
 
                         <Grid>
-                            <TextBlock Text="MOVING TIME" Foreground="{StaticResource LabelBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Top"/>
+                            <TextBlock Text="MOVING TIME" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Top"/>
                              <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <TextBlock Text="{Binding YearTotalTime}" Foreground="{StaticResource DigitalMainBrush}" FontSize="28" FontFamily="{StaticResource DigitalFont}" FontWeight="Normal">
                                     <TextBlock.Effect>
@@ -238,7 +247,7 @@
                     <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
                          <Button Command="{Binding RefreshCommand}" Content="⟳" Style="{StaticResource NavButtonStyle}" 
                                  FontSize="12" Margin="0,0,8,0" ToolTip="Refresh Now"/>
-                         <TextBlock Text="{Binding FooterText}" Foreground="{StaticResource LabelBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Center"/>
+                         <TextBlock Text="{Binding FooterText}" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 

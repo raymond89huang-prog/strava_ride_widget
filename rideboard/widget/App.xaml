@@ -17,7 +17,8 @@
         
         <!-- Fonts -->
         <FontFamily x:Key="DigitalFont">./Assets/Fonts/Digital-7/#Digital-7 Mono</FontFamily>
-        <FontFamily x:Key="LabelFont">Segoe UI, Arial</FontFamily>
+        <FontFamily x:Key="PixelFont">./Assets/Fonts/VT323/#VT323</FontFamily>
+        <FontFamily x:Key="LabelFont">./Assets/Fonts/VT323/#VT323, Segoe UI, Arial</FontFamily>
         
         <!-- Effects -->
         <DropShadowEffect x:Key="DigitalGlow" Color="{StaticResource LcdMainColor}" BlurRadius="2" ShadowDepth="0" Opacity="0.18"/>

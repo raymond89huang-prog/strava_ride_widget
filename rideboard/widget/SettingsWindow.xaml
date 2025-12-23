@@ -22,50 +22,50 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <TextBlock Text="Settings" Foreground="{StaticResource LabelBrush}" FontSize="14" FontWeight="Bold" FontFamily="{StaticResource LabelFont}" HorizontalAlignment="Center"/>
+            <TextBlock Text="SETTINGS" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" HorizontalAlignment="Center"/>
 
             <!-- Content -->
             <StackPanel Grid.Row="1" VerticalAlignment="Center">
                 <!-- Auto Start Checkbox -->
-                <CheckBox Content="Start on Boot" 
+                <CheckBox Content="START ON BOOT" 
                           IsChecked="{Binding IsAutoStartEnabled}"
-                          Foreground="{StaticResource DigitalMainBrush}" FontSize="13" FontFamily="{StaticResource LabelFont}"
+                          Foreground="{StaticResource DigitalMainBrush}" FontSize="14" FontFamily="{StaticResource PixelFont}"
                           HorizontalAlignment="Center"
                           Cursor="Hand"
                           Margin="0,0,0,15"/>
 
                 <!-- Strava Login Button -->
-                <Button Content="Connect Strava"
+                <Button Content="CONNECT STRAVA"
                         Command="{Binding LoginCommand}"
-                        Background="#FC4C02" Foreground="White" FontFamily="{StaticResource LabelFont}" FontSize="13"
+                        Background="#FC4C02" Foreground="White" FontFamily="{StaticResource PixelFont}" FontSize="14"
                         Padding="15,6" BorderThickness="0"
                         HorizontalAlignment="Center"
                         Cursor="Hand">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="4"/>
+                            <Setter Property="CornerRadius" Value="0"/>
                         </Style>
                     </Button.Resources>
                 </Button>
 
                 <!-- About Info -->
                 <StackPanel Margin="0,25,0,0">
-                    <TextBlock Text="RideBoard v1.2.4" Foreground="{StaticResource LabelBrush}" FontSize="12" FontWeight="SemiBold" FontFamily="{StaticResource LabelFont}" HorizontalAlignment="Center"/>
-                    <TextBlock Foreground="{StaticResource DigitalDarkBrush}" FontSize="11" FontFamily="{StaticResource LabelFont}" HorizontalAlignment="Center" Margin="0,4,0,0">
+                    <TextBlock Text="RIDEBOARD v1.2.3.1" Foreground="{StaticResource LabelBrush}" FontSize="14" FontFamily="{StaticResource PixelFont}" HorizontalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource PixelFont}" HorizontalAlignment="Center" Margin="0,4,0,0">
                         <Hyperlink NavigateUri="https://github.com/raymond89huang-prog/strava_ride_widget" RequestNavigate="Hyperlink_RequestNavigate"
                                    Foreground="{StaticResource DigitalDarkBrush}" TextDecorations="None">
-                            Developed by Raymond Huang
+                            DEVELOPED BY RAYMOND HUANG
                         </Hyperlink>
                     </TextBlock>
-                    <TextBlock Text="2025 Open Source (MIT)" Foreground="#60FFFFFF" FontSize="10" FontFamily="{StaticResource LabelFont}" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+                    <TextBlock Text="2025 OPEN SOURCE (MIT)" Foreground="#60FFFFFF" FontSize="10" FontFamily="{StaticResource PixelFont}" HorizontalAlignment="Center" Margin="0,2,0,0"/>
                 </StackPanel>
             </StackPanel>
 
             <!-- Close Button -->
-            <Button Grid.Row="2" Content="Close"
+            <Button Grid.Row="2" Content="CLOSE"
                     Click="BtnClose_Click"
-                    Background="Transparent" Foreground="{StaticResource LabelBrush}" FontFamily="{StaticResource LabelFont}"
-                    BorderThickness="0" FontSize="12"
+                    Background="Transparent" Foreground="{StaticResource LabelBrush}" FontFamily="{StaticResource PixelFont}"
+                    BorderThickness="0" FontSize="14"
                     HorizontalAlignment="Center"
                     Cursor="Hand" Margin="0,10,0,0"/>
             </Grid>

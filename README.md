@@ -1,9 +1,7 @@
 # RideBoard - Desktop Cycling Widget (Strava)
 
 RideBoard is a minimalist, always-on-top Windows desktop widget that displays your Strava cycling data in real-time. Designed to provide low-friction access to your training stats without opening a browser or mobile app.
-<img width="577" height="453" alt="image" src="https://github.com/user-attachments/assets/d992ca53-528d-4d65-bfa1-fc4a66ba4784" />
-<img width="609" height="485" alt="image" src="https://github.com/user-attachments/assets/d1733982-98e7-485f-9819-80ef684718bc" />
-<img width="363" height="352" alt="image" src="https://github.com/user-attachments/assets/10c6a638-240d-422f-bcc0-09b92a409ef3" />
+![RideBoard GUI](docs/GUI.png)
 
 
 
