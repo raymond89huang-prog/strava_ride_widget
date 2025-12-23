@@ -9,7 +9,7 @@ namespace RideBoard.Widget.Services
 {
     public class StravaService
     {
-        private readonly HttpClient _http = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+        private readonly HttpClient _http = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
         private StravaPayload? _cache;
         private DateTime _lastApiFetch = DateTime.MinValue;
         private readonly TimeSpan _apiInterval = TimeSpan.FromMinutes(10);

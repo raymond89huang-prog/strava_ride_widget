@@ -32,9 +32,24 @@ class StravaAuth:
         if 'expires_at' not in tokens and 'expires_in' in tokens:
             tokens['expires_at'] = time.time() + tokens['expires_in']
             
-        with open(TOKENS_PATH, 'w') as f:
-            json.dump(tokens, f, indent=2)
-        self.tokens = tokens
+        # Atomic write: write to temp file then rename
+        temp_path = TOKENS_PATH + '.tmp'
+        try:
+            with open(temp_path, 'w') as f:
+                json.dump(tokens, f, indent=2)
+            # Remove original file if exists (needed for Windows atomic replace)
+            if os.path.exists(TOKENS_PATH):
+                os.replace(temp_path, TOKENS_PATH)
+            else:
+                os.rename(temp_path, TOKENS_PATH)
+            self.tokens = tokens
+        except Exception as e:
+            print(f"Error saving tokens: {e}")
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except:
+                    pass
 
     def is_logged_in(self):
         return self.tokens is not None and 'access_token' in self.tokens
@@ -48,6 +63,14 @@ class StravaAuth:
         
         return self.tokens['access_token']
 
+    def clear_tokens(self):
+        if os.path.exists(TOKENS_PATH):
+            try:
+                os.remove(TOKENS_PATH)
+            except:
+                pass
+        self.tokens = None
+
     def refresh_token(self):
         print("Refreshing token...")
         payload = {
@@ -58,6 +81,12 @@ class StravaAuth:
         }
         try:
             response = requests.post('https://www.strava.com/oauth/token', data=payload)
+            
+            if response.status_code in [400, 401]:
+                print(f"Token refresh rejected (status {response.status_code}). Clearing tokens.")
+                self.clear_tokens()
+                return None
+                
             response.raise_for_status()
             new_tokens = response.json()
             self.save_tokens(new_tokens)

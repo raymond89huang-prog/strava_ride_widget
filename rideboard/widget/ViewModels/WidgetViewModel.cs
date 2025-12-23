@@ -20,6 +20,19 @@ namespace RideBoard.Widget.ViewModels
 
         // 0 = Daily View, 1 = Yearly View
         private int _currentPageIndex = 0;
+        public int CurrentPageIndex
+        {
+            get => _currentPageIndex;
+            set
+            {
+                if (_currentPageIndex != value)
+                {
+                    _currentPageIndex = value;
+                    UpdatePageVisibility();
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public ICommand NextPageCommand { get; }
         public ICommand PrevPageCommand { get; }
@@ -124,9 +137,12 @@ namespace RideBoard.Widget.ViewModels
 
         private void SwitchPage(int direction)
         {
-            _currentPageIndex = (_currentPageIndex + direction) % 2;
-            if (_currentPageIndex < 0) _currentPageIndex = 1;
+            CurrentPageIndex = (CurrentPageIndex + direction) % 2;
+            if (CurrentPageIndex < 0) CurrentPageIndex = 1;
+        }
 
+        private void UpdatePageVisibility()
+        {
             if (_currentPageIndex == 0)
             {
                 PageDailyVisibility = Visibility.Visible;

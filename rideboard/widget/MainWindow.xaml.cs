@@ -15,10 +15,12 @@ namespace RideBoard.Widget
         {
             InitializeComponent();
             DataContext = _vm;
+            System.Windows.Application.Current.Exit += (s, e) => WindowConfig.Save(this);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            WindowConfig.Load(this);
             // Topmost = true; // Disabled by user request
             WindowBehavior.ApplyClickThrough(this, false);
             _vm.Start();
@@ -38,6 +40,7 @@ namespace RideBoard.Widget
             try
             {
                 DragMove();
+                WindowConfig.Save(this); // Save immediately after drag
             }
             catch { }
             WindowBehavior.SnapToEdges(this, 20);
