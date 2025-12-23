@@ -122,7 +122,7 @@
                                                 <StaticResource ResourceKey="DigitalGlow"/>
                                             </TextBlock.Effect>
                                         </TextBlock>
-                                        <TextBlock Text="m" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Bottom" Margin="2,0,0,2"/>
+                                        <TextBlock Text="m" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Bottom" Margin="2,0,0,3"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
@@ -164,7 +164,7 @@
                                                 <StaticResource ResourceKey="DigitalGlow"/>
                                             </TextBlock.Effect>
                                         </TextBlock>
-                                        <TextBlock Text="m" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Bottom" Margin="2,0,0,2"/>
+                                        <TextBlock Text="m" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Bottom" Margin="2,0,0,3"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
@@ -172,18 +172,18 @@
                     </StackPanel>
 
                     <StackPanel Visibility="{Binding PageYearlyVisibility}">
-                        <TextBlock Text="YEARLY SUMMARY" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" Margin="0,0,0,2"/>
-                        <TextBlock Text="{Binding YearRange}" Foreground="{StaticResource DigitalDarkBrush}" FontSize="14" FontFamily="{StaticResource PixelFont}" Margin="0,0,0,16"/>
+                        <TextBlock Text="YEARLY SUMMARY" Foreground="{StaticResource LabelBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" FontWeight="Bold" Margin="0,0,0,2"/>
+                        <TextBlock Text="{Binding YearRange}" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" Margin="0,0,0,16"/>
                         
                         <Grid Margin="0,0,0,12">
-                            <TextBlock Text="TOTAL DISTANCE" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Top"/>
+                            <TextBlock Text="TOTAL DISTANCE" Foreground="{StaticResource LabelBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Top"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <TextBlock Text="{Binding YearTotalDistance}" Foreground="{StaticResource DigitalMainBrush}" FontSize="28" FontFamily="{StaticResource DigitalFont}" FontWeight="Normal">
                                     <TextBlock.Effect>
                                         <StaticResource ResourceKey="DigitalGlow"/>
                                     </TextBlock.Effect>
                                 </TextBlock>
-                                <TextBlock Text="km" Foreground="{StaticResource DigitalDarkBrush}" FontSize="14" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Bottom" Margin="4,0,0,6"/>
+                                <TextBlock Text="km" Foreground="{StaticResource DigitalDarkBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Bottom" Margin="4,0,0,6"/>
                             </StackPanel>
                             <!-- Divider (Etched) -->
                             <Grid Height="2" Opacity="0.6" VerticalAlignment="Bottom" Margin="0,32,0,0">
@@ -210,7 +210,7 @@
                         </Grid>
 
                         <Grid>
-                            <TextBlock Text="MOVING TIME" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Top"/>
+                            <TextBlock Text="MOVING TIME" Foreground="{StaticResource LabelBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Top"/>
                              <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <TextBlock Text="{Binding YearTotalTime}" Foreground="{StaticResource DigitalMainBrush}" FontSize="28" FontFamily="{StaticResource DigitalFont}" FontWeight="Normal">
                                     <TextBlock.Effect>
@@ -238,7 +238,7 @@
                     <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
                          <Button Command="{Binding RefreshCommand}" Content="⟳" Style="{StaticResource NavButtonStyle}" 
                                  FontSize="12" Margin="0,0,8,0" ToolTip="Refresh Now"/>
-                         <TextBlock Text="{Binding FooterText}" Foreground="{StaticResource LabelBrush}" FontSize="16" FontFamily="{StaticResource PixelFont}" VerticalAlignment="Center"/>
+                         <TextBlock Text="{Binding FooterText}" Foreground="{StaticResource LabelBrush}" FontSize="12" FontFamily="{StaticResource LabelFont}" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
